@@ -17,11 +17,15 @@ const processImages_1 = require("../../utilities/processImages");
 const router = express_1.default.Router();
 // images endpoint
 router.get('/images', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const path = '/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/fjord.jpg';
     const filename = req.query.filename;
     const width = Number(req.query.width);
     const height = Number(req.query.height);
-    const thumpPath = yield (0, processImages_1.processImages)(filename, height, width);
-    res.sendFile(thumpPath);
+    try {
+        const thumpPath = yield (0, processImages_1.processImages)(filename, height, width);
+        res.sendFile(thumpPath);
+    }
+    catch (error) {
+        console.log(error);
+    }
 }));
 exports.default = router;

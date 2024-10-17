@@ -15,22 +15,29 @@ const cashedImagesSet = new Set();
 const cacheImage = (path) => __awaiter(void 0, void 0, void 0, function* () {
     cashedImagesSet.add(path);
     if (cashedImagesSet.size == 1) {
-        yield fs_1.promises.mkdir('/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/thumps');
+        try {
+            yield fs_1.promises.mkdir('./images/thumps');
+        }
+        catch (error) {
+            throw error;
+        }
     }
-    console.log(cashedImagesSet);
 });
 exports.cacheImage = cacheImage;
 const isCached = (path) => {
-    console.log(cashedImagesSet.has(path));
     return cashedImagesSet.has(path);
 };
 exports.isCached = isCached;
 const removeCache = () => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('removing');
-    yield fs_1.promises.rm('/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/thumps', {
-        force: true,
-        recursive: true,
-    });
+    try {
+        yield fs_1.promises.rm('./images/thumps', {
+            force: true,
+            recursive: true,
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
     process.exit(0);
 });
 exports.removeCache = removeCache;

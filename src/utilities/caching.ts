@@ -6,7 +6,7 @@ const cacheImage = async (path: string): Promise<void> => {
   cashedImagesSet.add(path);
   if (cashedImagesSet.size == 1) {
     try {
-      await fsPromises.mkdir('/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/thumps');
+      await fsPromises.mkdir('./images/thumps');
     } catch (error) {
       throw error;
     }
@@ -19,7 +19,7 @@ const isCached = (path: string): boolean => {
 
 const removeCache = async (): Promise<void> => {
   try {
-    await fsPromises.rm('/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/thumps', {
+    await fsPromises.rm('./images/thumps', {
       force: true,
       recursive: true,
     });

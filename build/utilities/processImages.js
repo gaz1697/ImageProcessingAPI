@@ -17,13 +17,18 @@ const fs_1 = require("fs");
 const sharp_1 = __importDefault(require("sharp"));
 const caching_1 = require("./caching");
 const processImages = (name, height, width) => __awaiter(void 0, void 0, void 0, function* () {
-    const path = '/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/' + name + '.jpg';
-    const thumpPath = `/Users/abdulrahman/Documents/Projects/ImageProcessingAPI/images/thumps/${name} width${width} height${height}.jpeg`;
+    const path = './images/' + name + '.jpg';
+    const thumpPath = `./images/thumps/${name} width${width} height${height}.jpeg`;
     if ((0, caching_1.isCached)(thumpPath))
         return thumpPath;
     (0, caching_1.cacheImage)(thumpPath);
-    const image = yield fs_1.promises.readFile(path);
-    yield (0, sharp_1.default)(image).resize(width, height).jpeg().toFile(thumpPath);
+    try {
+        const image = yield fs_1.promises.readFile(path);
+        yield (0, sharp_1.default)(image).resize(width, height).jpeg().toFile(thumpPath);
+    }
+    catch (error) {
+        console.log(error);
+    }
     return thumpPath;
 });
 exports.processImages = processImages;
