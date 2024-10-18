@@ -20,7 +20,7 @@ describe('testing app server functionality', () => {
         const response = yield request.get('/');
         expect(response.text).toBe('Image Processing api use endpoint /api/images to process images');
     }));
-    it('receive a 404 response for unavailable endpoints ', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('receives a 404 response for unavailable endpoints ', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/unavailable');
         expect(response.status).toBe(404);
     }));

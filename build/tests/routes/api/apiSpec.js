@@ -16,7 +16,7 @@ const supertest = require("supertest");
 const app_1 = __importDefault(require("../../../app"));
 const request = supertest(app_1.default);
 describe('testing api images processing functionality', () => {
-    it('gets an jpeg/image in response to a correct request', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('gets a jpeg/image in response to a correct request', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/api/images?filename=fjord&&width=300&&height=700');
         expect(response.header['content-type']).toEqual('image/jpeg');
     }));

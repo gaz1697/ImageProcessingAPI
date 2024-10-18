@@ -11,19 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const caching_1 = require("../../utilities/caching");
 describe('testing caching functionality', () => {
-    it('cacheImage(path) return a number', () => __awaiter(void 0, void 0, void 0, function* () {
+    it("cacheImage(path) doesn't throw an error", () => __awaiter(void 0, void 0, void 0, function* () {
         expect(yield (0, caching_1.cacheImage)('path')).not.toThrowError;
     }));
-    it('isCached(path) to return true', () => {
+    it('isCached(path) returns true', () => {
         expect((0, caching_1.isCached)('path')).toBeTrue();
     });
-    it('isCached(newPath) to return false', () => {
+    it('isCached(newPath) returns false', () => {
         expect((0, caching_1.isCached)('newPath')).toBeFalse();
     });
-    it('pathExist(images/fjord.jpg) to be true', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('pathExist(images/fjord.jpg) returns true', () => __awaiter(void 0, void 0, void 0, function* () {
         expect(yield (0, caching_1.pathExist)('images/fjord.jpg')).toBeTrue();
     }));
-    it('pathExist(images/doesntExist.jpg) to be False', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('pathExist(images/doesntExist.jpg) returns false', () => __awaiter(void 0, void 0, void 0, function* () {
         expect(yield (0, caching_1.pathExist)('images/doesntExist.jpg')).toBeFalse();
     }));
     it('removeCache() to remove cached thumps folder', () => __awaiter(void 0, void 0, void 0, function* () {

@@ -15,7 +15,7 @@ describe('testing images processing functionality', () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
         yield fs_1.promises.mkdir('./images/thumps', { recursive: true });
     }));
-    it('gets a an image buffer in response to a correct inputs', () => __awaiter(void 0, void 0, void 0, function* () {
+    it('gets an image buffer in response to correct inputs', () => __awaiter(void 0, void 0, void 0, function* () {
         const buffer = yield (0, processImages_1.processImages)('fjord', 400, 400);
         expect(buffer).toBeTruthy();
     }));

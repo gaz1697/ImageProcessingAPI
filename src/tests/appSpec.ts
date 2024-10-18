@@ -8,7 +8,7 @@ describe('testing app server functionality', () => {
     const response = await request.get('/');
     expect(response.text).toBe('Image Processing api use endpoint /api/images to process images');
   });
-  it('receive a 404 response for unavailable endpoints ', async () => {
+  it('receives a 404 response for unavailable endpoints ', async () => {
     const response = await request.get('/unavailable');
     expect(response.status).toBe(404);
   });
