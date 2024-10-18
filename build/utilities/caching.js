@@ -9,18 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeCache = exports.isCached = exports.cacheImage = void 0;
+exports.pathExist = exports.removeCache = exports.isCached = exports.cacheImage = void 0;
 const fs_1 = require("fs");
 const cashedImagesSet = new Set();
 const cacheImage = (path) => __awaiter(void 0, void 0, void 0, function* () {
     cashedImagesSet.add(path);
     if (cashedImagesSet.size == 1) {
-        try {
-            yield fs_1.promises.mkdir('./images/thumps');
-        }
-        catch (error) {
-            throw error;
-        }
+        yield fs_1.promises.mkdir('./images/thumps', { recursive: true });
     }
 });
 exports.cacheImage = cacheImage;
@@ -38,6 +33,16 @@ const removeCache = () => __awaiter(void 0, void 0, void 0, function* () {
     catch (error) {
         console.log(error);
     }
-    process.exit(0);
 });
 exports.removeCache = removeCache;
+const pathExist = (path) => __awaiter(void 0, void 0, void 0, function* () {
+    let pathExist = true;
+    try {
+        yield fs_1.promises.readFile(path);
+    }
+    catch (_a) {
+        pathExist = false;
+    }
+    return pathExist;
+});
+exports.pathExist = pathExist;

@@ -5,11 +5,7 @@ const cashedImagesSet = new Set();
 const cacheImage = async (path: string): Promise<void> => {
   cashedImagesSet.add(path);
   if (cashedImagesSet.size == 1) {
-    try {
-      await fsPromises.mkdir('./images/thumps');
-    } catch (error) {
-      throw error;
-    }
+    await fsPromises.mkdir('./images/thumps', { recursive: true });
   }
 };
 
@@ -26,7 +22,16 @@ const removeCache = async (): Promise<void> => {
   } catch (error) {
     console.log(error);
   }
-  process.exit(0);
 };
 
-export { cacheImage, isCached, removeCache };
+const pathExist = async (path: string): Promise<boolean> => {
+  let pathExist = true;
+  try {
+    await fsPromises.readFile(path);
+  } catch {
+    pathExist = false;
+  }
+  return pathExist;
+};
+
+export { cacheImage, isCached, removeCache, pathExist };

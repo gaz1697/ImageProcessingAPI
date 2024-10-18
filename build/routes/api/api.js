@@ -21,11 +21,12 @@ router.get('/images', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const width = Number(req.query.width);
     const height = Number(req.query.height);
     try {
-        const thumpPath = yield (0, processImages_1.processImages)(filename, height, width);
-        res.sendFile(thumpPath);
+        const thumpImage = yield (0, processImages_1.processImages)(filename, height, width);
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.send(thumpImage);
     }
     catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }));
 exports.default = router;

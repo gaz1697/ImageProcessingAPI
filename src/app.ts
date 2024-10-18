@@ -8,7 +8,18 @@ app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
 
+app.get('/', (req, res) => {
+  res.send('Image Processing api use endpoint /api/images to process images');
+});
 app.use('/api', apiRoutes);
 
-process.on('beforeExit', removeCache);
-process.on('SIGINT', removeCache);
+process.on('beforeExit', async () => {
+  await removeCache();
+  process.exit(0);
+});
+process.on('SIGINT', async () => {
+  await removeCache();
+  process.exit(0);
+});
+
+export default app;

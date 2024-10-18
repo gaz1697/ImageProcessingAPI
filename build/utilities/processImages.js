@@ -19,16 +19,20 @@ const caching_1 = require("./caching");
 const processImages = (name, height, width) => __awaiter(void 0, void 0, void 0, function* () {
     const path = './images/' + name + '.jpg';
     const thumpPath = `./images/thumps/${name} width${width} height${height}.jpeg`;
-    if ((0, caching_1.isCached)(thumpPath))
-        return thumpPath;
-    (0, caching_1.cacheImage)(thumpPath);
     try {
-        const image = yield fs_1.promises.readFile(path);
-        yield (0, sharp_1.default)(image).resize(width, height).jpeg().toFile(thumpPath);
+        if (!(0, caching_1.isCached)(thumpPath)) {
+            if (yield (0, caching_1.pathExist)(path)) {
+                (0, caching_1.cacheImage)(thumpPath);
+                yield (0, sharp_1.default)(path).resize(width, height).jpeg().toFile(thumpPath);
+            }
+            else {
+                throw new Error("image doesn't exist");
+            }
+        }
+        return yield fs_1.promises.readFile(thumpPath);
     }
     catch (error) {
-        console.log(error);
+        throw new Error(`failed to process image: ${name} error: ${error}`);
     }
-    return thumpPath;
 });
 exports.processImages = processImages;
