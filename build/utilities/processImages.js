@@ -32,7 +32,7 @@ const processImages = (name, height, width) => __awaiter(void 0, void 0, void 0,
         return yield fs_1.promises.readFile(thumpPath);
     }
     catch (error) {
-        throw new Error(`failed to process image: ${name} error: ${error}`);
+        throw new Error(`failed to process image: ${name} as ${error}`);
     }
 });
 exports.processImages = processImages;

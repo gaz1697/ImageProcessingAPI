@@ -15,7 +15,7 @@ export const processImages = async (name: string, height: number, width: number)
       }
     }
     return await fsPromises.readFile(thumpPath);
-  } catch (error) {
-    throw new Error(`failed to process image: ${name} error: ${error}`);
+  } catch (error: unknown) {
+    throw new Error(`failed to process image: ${name} as ${error}`);
   }
 };

@@ -14,19 +14,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const processImages_1 = require("../../utilities/processImages");
+const caching_1 = require("../../utilities/caching");
 const router = express_1.default.Router();
 // images endpoint
 router.get('/images', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const filename = req.query.filename;
     const width = Number(req.query.width);
     const height = Number(req.query.height);
-    try {
-        const thumpImage = yield (0, processImages_1.processImages)(filename, height, width);
-        res.setHeader('Content-Type', 'image/jpeg');
-        res.send(thumpImage);
+    const path = './images/' + filename + '.jpg';
+    // validating parameters
+    let errorMessage = "Couldn't process the image as the following parameters are incorrect: ";
+    let isError = false;
+    let params = [
+        { bool: Number.isNaN(height), name: 'height' },
+        { bool: Number.isNaN(width), name: 'width' },
+        { bool: !(yield (0, caching_1.pathExist)(path)), name: 'file name' },
+    ];
+    params.forEach((param) => {
+        if (param.bool) {
+            errorMessage += param.name + ' , ';
+            isError = true;
+        }
+    });
+    if (isError) {
+        res.send(errorMessage);
     }
-    catch (error) {
-        res.sendStatus(404);
+    // processing the request
+    else {
+        try {
+            const thumpImage = yield (0, processImages_1.processImages)(filename, height, width);
+            res.setHeader('Content-Type', 'image/jpeg');
+            res.send(thumpImage);
+        }
+        catch (error) {
+            res.send(errorMessage);
+        }
     }
 }));
 exports.default = router;
