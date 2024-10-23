@@ -25,7 +25,7 @@ This API provides functionality to process images by resizing them based on the 
 
   - **Type**: `string`
   - **Description**: Name of the image file located inside the `images` folder.
-  - **Example**: `"sample.jpg"`
+  - **Example**: `"fjord"`
 
 - **`width`** (required):
 
